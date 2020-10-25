@@ -23,20 +23,17 @@ const App = () => {
   };
 
   const handleKey = (el) => {
-    console.log(el.keyCode);
     if (el.keyCode === 37) setX(x - 5);
     if (el.keyCode === 38) setY(y - 5);
     if (el.keyCode === 39) setX(x + 5);
     if (el.keyCode === 40) setY(y + 5);
-
-    setBallPosition({
-      left: x + "px",
-      top: y + "0px"
-    });
   };
 
   const renderChoice = () => {
-    if (renderBall) return <div className="ball" style={ballPosition}></div>;
+    if (renderBall)
+      return (
+        <div className="ball" style={{ right: y + "px", left: x + "px" }}></div>
+      );
     else
       return (
         <button className="start" onClick={start}>
@@ -48,6 +45,7 @@ const App = () => {
   return (
     <div className="playground">
       {renderChoice()}
+      <br />
       <button onClick={reset} className="reset">
         Reset
       </button>
