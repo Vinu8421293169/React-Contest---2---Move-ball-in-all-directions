@@ -32,7 +32,7 @@ const App = () => {
   const renderChoice = () => {
     if (renderBall)
       return (
-        <div className="ball" style={{ right: y + "px", left: x + "px" }}></div>
+        <div className="ball" style={{ top: y + "px", left: x + "px" }}></div>
       );
     else
       return (
@@ -45,7 +45,6 @@ const App = () => {
   return (
     <div className="playground">
       {renderChoice()}
-      <br />
       <button onClick={reset} className="reset">
         Reset
       </button>
