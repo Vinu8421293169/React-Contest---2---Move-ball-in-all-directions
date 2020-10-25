@@ -3,11 +3,11 @@ import "../styles/App.css";
 
 const App = () => {
   const [renderBall, setRenderBall] = useState(false);
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
+  let x = 0,
+    y = 0;
   const [ballPosition, setBallPosition] = useState({
-    left: "0px",
-    top: "0px"
+    left: x,
+    top: y
   });
 
   const start = () => {
@@ -16,23 +16,37 @@ const App = () => {
   };
 
   const reset = () => {
-    setX(0);
-    setY(0);
+    setBallPosition({
+      left: 0,
+      top: 0
+    });
+    x = 0;
+    y = 0;
     setRenderBall(false);
     document.removeEventListener("keydown", (el) => handleKey(el));
   };
 
   const handleKey = (el) => {
-    if (el.keyCode === 37) setX(x - 5);
-    if (el.keyCode === 38) setY(y - 5);
-    if (el.keyCode === 39) setX(x + 5);
-    if (el.keyCode === 40) setY(y + 5);
+    if (el.keyCode === 37) x = x - 5;
+    if (el.keyCode === 38) y = y - 5;
+    if (el.keyCode === 39) x = x + 5;
+    if (el.keyCode === 40) y = y + 5;
+    setBallPosition({
+      top: y,
+      left: x
+    });
   };
 
   const renderChoice = () => {
     if (renderBall)
       return (
-        <div className="ball" style={{ top: y + "px", left: x + "px" }}></div>
+        <div
+          className="ball"
+          style={{
+            top: ballPosition.top + "px",
+            left: ballPosition.left + "px"
+          }}
+        ></div>
       );
     else
       return (
@@ -45,7 +59,7 @@ const App = () => {
   return (
     <div className="playground">
       {renderChoice()}
-      <button onClick={reset} className="reset">
+      <button onClick={() => reset()} className="reset">
         Reset
       </button>
     </div>
